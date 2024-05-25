@@ -1,22 +1,26 @@
 package com.example.j_api_iot.model.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
 
-@Entity
+@Document(collection = "principal")
 @Data
 public class Principal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public String id;
-    public String rgb;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
-    @CreationTimestamp
-    @Column(name = "acessado")
+    private String rgb;
+
+    @CreatedDate
+    @Field("creationTimeStamp")
     private Instant creationTimeStamp;
 
 
