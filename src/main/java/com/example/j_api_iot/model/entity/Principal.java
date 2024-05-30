@@ -6,12 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
 
-//@Document(collection = "principal")
+
 @Data
 @Entity
 public class Principal {
@@ -21,6 +19,10 @@ public class Principal {
     private Integer id;
 
     private String rgb;
+
+    private float volume;
+
+    private String trash_state;
 
     @CreationTimestamp
     private Instant creationTimeStamp;

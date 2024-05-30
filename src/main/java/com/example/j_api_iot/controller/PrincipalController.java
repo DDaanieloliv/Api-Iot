@@ -5,6 +5,7 @@ import com.example.j_api_iot.model.repository.PrincipalRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -32,5 +33,55 @@ public class PrincipalController {
         return repository.findAll();
 
     }
+
+    @GetMapping("lastTime")
+    public Instant lastDate(Principal principal){
+
+        return repository.findByLastDate();
+
+    }
+
+    @GetMapping("volumeNow")
+    public Object volumeNow(Principal principal){
+
+        return repository.findByVolumeNow();
+
+    }
+
+    @GetMapping("colorNow")
+    public Object colorNow(Principal principal){
+
+        return repository.findByColorNow();
+
+    }
+
+    @GetMapping("totalUpdate")
+    public Integer totalUpdate(Principal principal){
+
+        return repository.findByTotalUpdate();
+
+    }
+
+    @GetMapping("countOpen")
+    public Integer countOpen(Principal principal){
+
+        return repository.findByCountOpen() ;
+
+    }
+
+    @GetMapping("countClose")
+    public Integer countClose(Principal principal){
+
+        return repository.findByCountClose() ;
+
+    }
+
+    @GetMapping("countColor")
+    public Integer countColor(Principal principal){
+
+        return repository.findByCountColor() ;
+
+    }
+
 
 }
