@@ -1,5 +1,7 @@
 package com.example.j_api_iot.controller;
 
+import com.example.j_api_iot.model.dto.ObjectStastsDTO;
+import com.example.j_api_iot.model.entity.PrincipalStats;
 import com.example.j_api_iot.model.entity.Principal;
 import com.example.j_api_iot.model.repository.PrincipalRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,14 +37,14 @@ public class PrincipalController {
     }
 
     @GetMapping("lastTime")
-    public Instant lastDate(Principal principal){
+    public String lastDate(Principal principal){
 
         return repository.findByLastDate();
 
     }
 
     @GetMapping("volumeNow")
-    public Object volumeNow(Principal principal){
+    public String volumeNow(Principal principal){
 
         return repository.findByVolumeNow();
 
@@ -83,5 +85,12 @@ public class PrincipalController {
 
     }
 
+
+    @GetMapping("findSql")
+    public Object findSql(PrincipalStats dto){
+
+        return repository.findByThisSQL();
+
+    }
 
 }

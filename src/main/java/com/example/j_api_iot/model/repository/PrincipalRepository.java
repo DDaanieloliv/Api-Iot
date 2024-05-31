@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.util.List;
 
 @Repository
@@ -19,21 +18,21 @@ public interface PrincipalRepository extends JpaRepository<Principal, Integer> {
 
     @Query( value = " SELECT MAX(creation_time_stamp) AS ultima_data_de_criacao\n" +
             "FROM principal;", nativeQuery = true)
-    Instant findByLastDate();
+    String findByLastDate();
 
 
     @Query(value = "SELECT volume\n" +
             "FROM principal\n" +
             "ORDER BY id DESC\n" +
             "LIMIT 1;", nativeQuery = true)
-    Object findByVolumeNow();
+    String findByVolumeNow();
 
 
     @Query(value = "SELECT rgb\n" +
             "FROM principal\n" +
             "ORDER BY id DESC\n" +
             "LIMIT 1;", nativeQuery = true)
-    Object findByColorNow();
+    String findByColorNow();
 
 
     @Query(value = "SELECT COUNT(*) AS total_atualizacoes\n" +
@@ -56,6 +55,17 @@ public interface PrincipalRepository extends JpaRepository<Principal, Integer> {
             "FROM principal\n" +
             "WHERE rgb = '255,120,0';", nativeQuery = true)
     Integer findByCountColor();
+
+    @Query(value = "SELECT MAX(p.creation_time_stamp) AS ultima_data_de_criacao, " +
+            "       (SELECT p.volume FROM principal p ORDER BY p.id DESC LIMIT 1) AS volumeNow, " +
+            "       (SELECT p.rgb FROM principal p ORDER BY p.id DESC LIMIT 1) AS colorNow, " +
+            "       COUNT(*) AS total_atualizacoes, " +
+            "       (SELECT COUNT(*) FROM principal p WHERE p.trash_state = 'open') AS vezesAberto, " +
+            "       (SELECT COUNT(*) FROM principal p WHERE p.trash_state = 'close') AS vezesFechado, " +
+            "       (SELECT COUNT(*) FROM principal p WHERE p.rgb = '255,120,0') AS vezesLaranja " +
+            "FROM principal p", nativeQuery = true)
+    List<Object> findByThisSQL();
+
 
 }
 
